@@ -5,6 +5,9 @@ const Course = ({ course }) => {
       {course.parts.map(part => 
         <p key={part.id}>{part.name} {part.exercises}</p>
       )}
+      <p>Total: {course.parts.reduce(
+        (total, current) => total + current.exercises, 0
+      )} exercises</p>
     </div>
   )
 }
