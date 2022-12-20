@@ -1,5 +1,54 @@
 import { useState } from 'react'
 
+const RenderNumbers = ({filter, persons}) => {
+  if (filter.length > 0) {
+    let reg = new RegExp(`^${filter}` , 'i')
+
+    let filtered = persons.filter(person => person.name.match(reg))
+    return filtered.map(person =>
+      <p key={person.name}>{person.name}: {person.number}</p>
+    )
+  } else {
+    return persons.map(person => 
+      <p key={person.name}>{person.name}: {person.number}</p> 
+    )
+  }
+}
+
+const Filter = ({filter, handleFilter}) => {
+  return (
+    <div>
+      Filter shown with: <input 
+          type='text'
+          value={filter}
+          onChange={handleFilter}
+        />
+    </div>
+  )
+}
+
+const PersonForm = ({newName, handleNameChange, newNumber, handleNumberChange, addPerson}) => {
+  return (
+    <form onSubmit={addPerson}>
+      <div>
+        Name: <input 
+            value={newName} 
+            onChange={handleNameChange} 
+          />
+      </div>
+      <div>
+        Number: <input 
+            value={newNumber} 
+            onChange={handleNumberChange}
+          />
+      </div>
+      <div>
+        <button type="submit">add</button>
+      </div>
+    </form>
+  )
+}
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-123456' },
@@ -27,64 +76,25 @@ const App = () => {
   }
 
   const handleNameChange = (event) => {
-    console.log(event.target.value)
     setNewName(event.target.value)
   }
-
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
   }
-
   const handleFilter = (event) => {
     setFilter(event.target.value)
-  }
-
-  const renderNumbers = (event) => {
-    if (filter.length > 0) {
-      let reg = new RegExp(`^${filter}` , 'i')
-
-      let filtered = persons.filter(person => person.name.match(reg))
-      return filtered.map(person =>
-        <p key={person.name}>{person.name}: {person.number}</p>
-      )
-    } else {
-      return persons.map(person => 
-        <p key={person.name}>{person.name}: {person.number}</p> 
-      )
-    }
   }
 
   return (
     <div>
       <h2>Phonebook</h2> 
+      <Filter filter={filter} handleFilter={handleFilter} />
 
-        <div>
-          Filter shown with: <input 
-              type='text'
-              value={filter}
-              onChange={handleFilter}
-            />
-        </div>
+      <h2>Add a new person</h2> 
+      <PersonForm newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} addPerson={addPerson} />
 
-      <form onSubmit={addPerson}>
-        <div>
-          Name: <input 
-              value={newName} 
-              onChange={handleNameChange} 
-            />
-        </div>
-        <div>
-          Number: <input 
-              value={newNumber} 
-              onChange={handleNumberChange}
-            />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
       <h2>Numbers</h2>
-        {renderNumbers()}
+        <RenderNumbers filter={filter} persons={persons} />
     </div>
   )
 }
