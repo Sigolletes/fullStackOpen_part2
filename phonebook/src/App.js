@@ -1,34 +1,48 @@
 import { useState, useEffect } from 'react'
 import requestsService from './services/requests'
 
-const Notification = ({ message }) => {
+const Notification = ({ message, alert }) => {
   if (message === null) {
     return null
+  } else if (alert) {
+    return (
+      <div className='alert'>
+        {message}
+      </div>
+    )
+  } else {
+    return (
+      <div className='success'>
+        {message}
+      </div>
+   )
   }
-  return (
-    <div className='success'>
-      {message}
-    </div>
-  )
 }
 
-const RenderNumbers = ({filter, persons, setPersons}) => {
+const RenderNumbers = ({filter, persons, setPersons, setMessage}) => {
   function deleting (person) {
     if (window.confirm(`Delete ${person.name}?`)) {
       requestsService
       .deletePerson(person.id)
       .then(() => {
       setPersons(persons.filter(p => p.id !== person.id))
+      setMessage(
+        `${person.name} has been deleted`
+      )
+      setTimeout(() => {
+        setMessage(null)
+      }, 4000)
       })
     }
   }
+
   if (filter.length > 0) {
     let reg = new RegExp(`^${filter}` , 'i')
     let filtered = persons.filter(person => person.name.match(reg))
     return filtered.map(person =>
-      <div>
-        <p key={person.id}>{person.name}: {person.number}</p>
-        <button 
+      <div className='listItem' key={person.id}>
+        <p className='inline' key={person.id}>{person.name}: {person.number} </p>
+        <button className='inline dltBttn' 
           type='button'
           onClick={() => {deleting(person)}}>
           Delete
@@ -37,9 +51,9 @@ const RenderNumbers = ({filter, persons, setPersons}) => {
     )
   } else {
     return persons.map(person => 
-      <div>
-        <p key={person.id}>{person.name}: {person.number}</p>
-        <button 
+      <div className='listItem' key={person.id}>
+        <p className='inline' key={person.id}>{person.name}: {person.number} </p>
+        <button className='inline dltBttn' 
           type='button'
           onClick={() => {deleting(person)}}>
           Delete
@@ -51,8 +65,8 @@ const RenderNumbers = ({filter, persons, setPersons}) => {
 
 const Filter = ({filter, handleFilter}) => {
   return (
-    <div>
-      Filter shown with: <input 
+    <div className='input'>
+      Filter: <input 
           type='text'
           value={filter}
           onChange={handleFilter}
@@ -64,20 +78,20 @@ const Filter = ({filter, handleFilter}) => {
 const PersonForm = ({newName, handleNameChange, newNumber, handleNumberChange, addPerson}) => {
   return (
     <form onSubmit={addPerson}>
-      <div>
+      <div className='input'>
         Name: <input 
             value={newName} 
             onChange={handleNameChange} 
           />
       </div>
-      <div>
+      <div className='input'>
         Number: <input 
             value={newNumber} 
             onChange={handleNumberChange}
           />
       </div>
-      <div>
-        <button type="submit">add</button>
+      <div className='bttnContainer'>
+        <button className='addBttn' type="submit">Add</button>
       </div>
     </form>
   )
@@ -89,6 +103,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
   const [message, setMessage] = useState(null)
+  const [alert, setAlert] = useState(false)
 
   useEffect(() => {
     requestsService
@@ -116,9 +131,15 @@ const App = () => {
             )
             setTimeout(() => {
               setMessage(null)
-            }, 5000)
+            }, 4000)
             setNewName('')
             setNewNumber('')
+          })
+          .catch(error => {
+            setAlert(true)
+            setMessage(`${newName} has already been deleted from the phonebook`)
+            setPersons(persons.filter(p => p.name !== newName))
+            console.log(error)
           })
       } else {
         setNewName('')
@@ -138,7 +159,7 @@ const App = () => {
           )
           setTimeout(() => {
             setMessage(null)
-          }, 5000)
+          }, 4000)
           setNewName('')
           setNewNumber('')
         })
@@ -156,14 +177,20 @@ const App = () => {
   }
 
   return (
-    <div>
-      <h2>Phonebook</h2> 
-      <Filter filter={filter} handleFilter={handleFilter} />
-      <h2>Add a new person</h2> 
-      <PersonForm newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} addPerson={addPerson} />
-      <h2>Numbers</h2>
-      <Notification message={message} />
-      <RenderNumbers filter={filter} persons={persons} setPersons={setPersons} />
+    <div className='container'>
+      <div className='form'>
+        <h2>Phonebook</h2> 
+        <Filter filter={filter} handleFilter={handleFilter} />
+        <h2>Add a new person</h2> 
+        <PersonForm newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} addPerson={addPerson} />
+        <Notification message={message} alert={alert} />
+      </div>
+      <div className='phonebook'>
+        <h2>Numbers</h2>
+        <div className='list'>
+          <RenderNumbers filter={filter} persons={persons} setPersons={setPersons} setMessage={setMessage} />
+        </div>
+      </div>
     </div>
   )
 }
