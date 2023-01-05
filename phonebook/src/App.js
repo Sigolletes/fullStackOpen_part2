@@ -1,8 +1,18 @@
 import { useState, useEffect } from 'react'
 import requestsService from './services/requests'
 
-const RenderNumbers = ({filter, persons, setPersons}) => {
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+  return (
+    <div className='success'>
+      {message}
+    </div>
+  )
+}
 
+const RenderNumbers = ({filter, persons, setPersons}) => {
   function deleting (person) {
     if (window.confirm(`Delete ${person.name}?`)) {
       requestsService
@@ -12,10 +22,8 @@ const RenderNumbers = ({filter, persons, setPersons}) => {
       })
     }
   }
-
   if (filter.length > 0) {
     let reg = new RegExp(`^${filter}` , 'i')
-
     let filtered = persons.filter(person => person.name.match(reg))
     return filtered.map(person =>
       <div>
@@ -80,6 +88,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     requestsService
@@ -92,7 +101,6 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
     if (persons.some(person => person.name === newName)){
-    
       if (window.confirm(`${newName} is already added to phonebook. Replace the old number with the new one?`)) {
         const personObject = {
           name: newName,
@@ -103,6 +111,12 @@ const App = () => {
           .update(idUpdate, personObject)
           .then(returnedPerson => {
             setPersons(persons.map(person => person.name !== newName ? person : returnedPerson))
+            setMessage(
+              `${newName} has been updated`
+            )
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
             setNewName('')
             setNewNumber('')
           })
@@ -119,6 +133,12 @@ const App = () => {
         .create(personObject)
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
+          setMessage(
+            `${newName} has been added to the phonebook`
+          )
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
           setNewName('')
           setNewNumber('')
         })
@@ -139,11 +159,10 @@ const App = () => {
     <div>
       <h2>Phonebook</h2> 
       <Filter filter={filter} handleFilter={handleFilter} />
-
       <h2>Add a new person</h2> 
       <PersonForm newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} addPerson={addPerson} />
-
       <h2>Numbers</h2>
+      <Notification message={message} />
       <RenderNumbers filter={filter} persons={persons} setPersons={setPersons} />
     </div>
   )
