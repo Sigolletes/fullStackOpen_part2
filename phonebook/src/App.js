@@ -163,6 +163,14 @@ const App = () => {
           setNewName('')
           setNewNumber('')
         })
+        .catch(error => {
+          // this is the way to access the error message
+          console.log(error.response.data.error)
+          setMessage(error.response.data.error)
+          setTimeout(() => {
+            setMessage(null)
+          }, 4000)
+        })
     }
   }
 
