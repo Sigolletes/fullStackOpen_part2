@@ -126,20 +126,28 @@ const App = () => {
           .update(idUpdate, personObject)
           .then(returnedPerson => {
             setPersons(persons.map(person => person.name !== newName ? person : returnedPerson))
+            setAlert(false)
             setMessage(
               `${newName} has been updated`
             )
             setTimeout(() => {
               setMessage(null)
-            }, 4000)
+            }, 10000)
             setNewName('')
             setNewNumber('')
           })
           .catch(error => {
+            console.log(error.response.data.error)
             setAlert(true)
-            setMessage(`${newName} has already been deleted from the phonebook`)
-            setPersons(persons.filter(p => p.name !== newName))
-            console.log(error)
+            setMessage(
+              `Error: ${error.response.data.error}`
+            )
+            // setPersons(persons.filter(p => p.name !== newName))
+            // console.log(error)
+            setTimeout(() => {
+              setMessage(null)
+              setAlert(false)
+            }, 10000)
           })
       } else {
         setNewName('')
@@ -154,22 +162,27 @@ const App = () => {
         .create(personObject)
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
+          setAlert(false)
           setMessage(
             `${newName} has been added to the phonebook`
           )
           setTimeout(() => {
             setMessage(null)
-          }, 4000)
+          }, 10000)
           setNewName('')
           setNewNumber('')
         })
         .catch(error => {
           // this is the way to access the error message
           console.log(error.response.data.error)
-          setMessage(error.response.data.error)
+          setAlert(true)
+          setMessage(
+            `Error: ${error.response.data.error}`
+          )
           setTimeout(() => {
             setMessage(null)
-          }, 4000)
+            setAlert(false)
+          }, 10000)
         })
     }
   }
