@@ -36,6 +36,107 @@ const RenderNumbers = ({filter, persons, setPersons, setMessage}) => {
     }
   }
 
+  return (
+    <>
+      <div className='listItem'>
+        <p className='inline'>Anna: 444</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Bea: 5555555</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Lorena: 12343424</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Jose: 4445678884</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Anna: 444</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Bea: 5555555</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Lorena: 12343424</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Jose: 4445678884</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Anna: 444</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Bea: 5555555</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Lorena: 12343424</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Jose: 4445678884</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+    </>
+  )
+/* 
   if (filter.length > 0) {
     let reg = new RegExp(`^${filter}` , 'i')
     let filtered = persons.filter(person => person.name.match(reg))
@@ -60,7 +161,7 @@ const RenderNumbers = ({filter, persons, setPersons, setMessage}) => {
         </button> 
       </div>
     )
-  }
+  } */
 }
 
 const Filter = ({filter, handleFilter}) => {
@@ -82,12 +183,14 @@ const PersonForm = ({newName, handleNameChange, newNumber, handleNumberChange, a
         Name: <input 
             value={newName} 
             onChange={handleNameChange} 
+            maxLength="20"
           />
       </div>
       <div className='input'>
         Number: <input 
             value={newNumber} 
             onChange={handleNumberChange}
+            maxLength="15"
           />
       </div>
       <div className='bttnContainer'>
@@ -212,6 +315,7 @@ const App = () => {
           <RenderNumbers filter={filter} persons={persons} setPersons={setPersons} setMessage={setMessage} />
         </div>
       </div>
+      <div className='end'></div>
     </div>
   )
 }
