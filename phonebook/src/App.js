@@ -36,7 +36,7 @@ const RenderNumbers = ({filter, persons, setPersons, setMessage}) => {
     }
   }
 
-  return (
+/*   return (
     <>
       <div className='listItem'>
         <p className='inline'>Anna: 444</p>
@@ -135,8 +135,8 @@ const RenderNumbers = ({filter, persons, setPersons, setMessage}) => {
         </button> 
       </div>
     </>
-  )
-/* 
+  ) */
+
   if (filter.length > 0) {
     let reg = new RegExp(`^${filter}` , 'i')
     let filtered = persons.filter(person => person.name.match(reg))
@@ -161,7 +161,7 @@ const RenderNumbers = ({filter, persons, setPersons, setMessage}) => {
         </button> 
       </div>
     )
-  } */
+  }
 }
 
 const Filter = ({filter, handleFilter}) => {
