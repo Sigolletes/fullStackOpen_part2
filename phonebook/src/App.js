@@ -36,7 +36,7 @@ const RenderNumbers = ({filter, persons, setPersons, setMessage}) => {
     }
   }
 
-/*   return (
+  return (
     <>
       <div className='listItem'>
         <p className='inline'>Anna: 444</p>
@@ -134,10 +134,106 @@ const RenderNumbers = ({filter, persons, setPersons, setMessage}) => {
           Delete
         </button> 
       </div>
+      <div className='listItem'>
+        <p className='inline'>Anna: 444</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Bea: 5555555</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Lorena: 12343424</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Jose: 4445678884</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Anna: 444</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Bea: 5555555</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Lorena: 12343424</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Jose: 4445678884</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Anna: 444</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Bea: 5555555</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Lorena: 12343424</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
+      <div className='listItem'>
+        <p className='inline'>Jose: 4445678884</p>
+        <button className='inline dltBttn' 
+          type='button'
+          onClick={() => {deleting("Anna")}}>
+          Delete
+        </button> 
+      </div>
     </>
-  ) */
+  )
 
-  if (filter.length > 0) {
+/*   if (filter.length > 0) {
     let reg = new RegExp(`^${filter}` , 'i')
     let filtered = persons.filter(person => person.name.match(reg))
     return filtered.map(person =>
@@ -161,7 +257,7 @@ const RenderNumbers = ({filter, persons, setPersons, setMessage}) => {
         </button> 
       </div>
     )
-  }
+  } */
 }
 
 const Filter = ({filter, handleFilter}) => {
