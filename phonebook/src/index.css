@@ -147,6 +147,7 @@ button:hover {
   display: grid;
   grid-template-columns: 3fr 1fr;
   padding: 10px;
+  gap: 10px;
 }
 
 .list p {
@@ -219,7 +220,7 @@ background: rgba(0,0,0,0);
 /* CONTAINER ################################################# */
 
   .container {
-    padding: 20px 30px 20px 10px;
+    padding: 20px 30px;
   }
 }
 
@@ -294,6 +295,10 @@ background: rgba(0,0,0,0);
   }
 
 /* PHONEBOOK ################################################# */
+
+  .phonebook {
+    width: clamp(500px, 50vw, 620px);
+  }
 
   .list {
     height: clamp(500px , 80vh, 1200px);
