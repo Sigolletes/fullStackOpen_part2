@@ -37,6 +37,7 @@ body {
 .container {
   height: 100vh;
   padding: 30px;
+  display: grid;
 }
 
 .form, .phonebook {
@@ -59,7 +60,7 @@ body {
 }
 
 .phonebook {
-  height: auto;
+  min-height: 400px;
   display: grid;
   grid-template-rows: 70px 1fr;
   overflow-y: auto;
@@ -139,6 +140,7 @@ button:hover {
   border-radius: 15px;
   padding: 15px;
   border: 5px solid var(--color3);
+  overflow-y: scroll;
 }
 
 .listItem {
@@ -175,10 +177,6 @@ button:hover {
 .alert {
   background: var(--alert);
   box-shadow: 0 0 11px var(--color3);
-}
-
-.end {
-  height: 50px;
 }
 
 /* SCROLLBAR ################################################# */
